@@ -1,0 +1,221 @@
+# Readiness tracker data for the GCIA exam.
+# Raw data only: overall readiness is calculated by code, not stored here.
+# To log progress, add a new entry to the END of `checkins`. Never edit or
+# delete old entries; they are the history used for charts.
+
+event:
+  name: "GCIA - GIAC Certified Intrusion Analyst"
+  target_date: 2027-02-26
+
+scale:
+  1: "Can't do it yet"
+  2: "Shaky"
+  3: "Okay with notes"
+  4: "Solid"
+  5: "Race-ready"
+
+# Each objective has a short `id` that never changes. Check-ins refer to
+# objectives by this id, so the display name can be edited safely later.
+objectives:
+  - id: tcpip_link_layer
+    name: "Concepts of TCP/IP and the Link Layer"
+    description: >-
+      How network traffic is organized into layers, and how the lowest
+      layer (Ethernet, MAC addresses, ARP) moves frames between machines
+      on the same network.
+    key_skills:
+      - Map protocols to the TCP/IP and OSI layers
+      - Read an Ethernet frame header and MAC addresses
+      - Explain how ARP works and how ARP spoofing looks
+      - Understand encapsulation (what wraps what)
+      - Convert between hex, binary, and decimal quickly
+
+  - id: ip_headers
+    name: "IP Headers"
+    description: >-
+      The fields at the start of every IPv4 packet and what each one is
+      for. Being able to read them by hand shows you what a packet is
+      really doing.
+    key_skills:
+      - Locate and decode every IPv4 header field from hex
+      - Calculate header length (IHL) and total length
+      - Understand TTL, protocol number, and checksum
+      - Spot odd or crafted header values
+      - Work with IP addresses, subnets, and CIDR
+
+  - id: tcp
+    name: "TCP"
+    description: >-
+      The protocol that makes reliable, ordered connections. It covers how
+      connections open, carry data, and close, and how that can be abused.
+    key_skills:
+      - Decode the TCP header, including flags and options
+      - Walk through the three-way handshake and connection teardown
+      - Follow sequence and acknowledgment numbers
+      - Recognize scans (SYN, FIN, Xmas, null) by their flags
+      - Understand window size and resets
+
+  - id: udp_icmp
+    name: "UDP and ICMP"
+    description: >-
+      UDP is the simple, no-connection way to send data. ICMP carries error
+      and status messages like ping. Both are common and both get misused.
+    key_skills:
+      - Decode UDP and ICMP headers
+      - Know common ICMP types and codes (echo, unreachable, time exceeded)
+      - Explain how traceroute works
+      - Recognize UDP scanning and ICMP-based reconnaissance
+      - Spot data hidden in ICMP payloads (tunneling)
+
+  - id: ipv6
+    name: "IPv6"
+    description: >-
+      The newer version of IP with longer addresses and a different header
+      design. It is increasingly common and brings its own quirks and risks.
+    key_skills:
+      - Read and shorten IPv6 addresses
+      - Decode the IPv6 header and extension headers
+      - Understand ICMPv6 and Neighbor Discovery
+      - Know address types (link-local, global, multicast)
+      - Recognize IPv6 tunneling over IPv4
+
+  - id: fragmentation
+    name: "Fragmentation"
+    description: >-
+      How a packet too big for a link gets split into pieces and put back
+      together. Attackers use odd fragments to hide from or confuse defenders.
+    key_skills:
+      - Use the IP ID, More Fragments flag, and fragment offset
+      - Calculate fragment offsets by hand
+      - Reassemble fragments correctly
+      - Recognize overlapping and tiny-fragment attacks
+      - Understand why different systems reassemble differently
+
+  - id: tcpdump_filters
+    name: "Tcpdump Filters"
+    description: >-
+      Writing filters so tcpdump shows only the packets you care about,
+      including filters that look at exact bytes and bits inside a header.
+    key_skills:
+      - Write basic filters by host, port, and protocol
+      - Combine filters with and, or, not
+      - Write byte-offset filters like tcp[13]
+      - Use bit masks to match specific flags
+      - Read and write pcap files with tcpdump
+
+  - id: wireshark
+    name: "Wireshark Fundamentals"
+    description: >-
+      Using Wireshark to look through captured traffic visually, filter it,
+      and pull out the conversations and files that matter.
+    key_skills:
+      - Write display filters
+      - Follow TCP and UDP streams
+      - Use Statistics menus (Conversations, Protocol Hierarchy)
+      - Export objects (files) from traffic
+      - Know the difference between capture and display filters
+
+  - id: application_protocols
+    name: "Application Protocols"
+    description: >-
+      The protocols that apps actually speak, like DNS, HTTP, SMTP, and TLS.
+      Knowing what normal looks like helps you spot what doesn't belong.
+    key_skills:
+      - Read DNS queries and responses, and spot DNS abuse
+      - Read HTTP requests, responses, and headers
+      - Understand SMTP and other common text protocols
+      - Know what TLS hides and what it still reveals
+      - Recognize protocols running on non-standard ports
+
+  - id: ids_fundamentals
+    name: "IDS Fundamentals and Network Architecture"
+    description: >-
+      What an intrusion detection system is, the different kinds, and where
+      to place sensors in a network so they actually see the traffic.
+    key_skills:
+      - Compare signature-based and anomaly-based detection
+      - Explain false positives and false negatives
+      - Choose sensor placement (taps, span ports, network zones)
+      - Understand IDS vs IPS (detect vs block)
+      - Know the tradeoffs of inline vs passive sensors
+
+  - id: ids_rules
+    name: "Intrusion Detection System Rules"
+    description: >-
+      Writing and reading detection rules, mainly Snort and Suricata style,
+      that tell an IDS what traffic to alert on.
+    key_skills:
+      - Read a rule header (action, protocol, addresses, ports)
+      - Use content, offset, depth, distance, and within
+      - Use flow and flag options
+      - Write a simple rule for a given attack
+      - Tune rules to cut down false positives
+
+  - id: advanced_ids
+    name: "Advanced IDS Concepts"
+    description: >-
+      The harder parts of detection: tricks attackers use to slip past an
+      IDS, and how to make detection more reliable.
+    key_skills:
+      - Recognize evasion (fragmentation, TTL tricks, encoding)
+      - Understand insertion and evasion attacks
+      - Explain target-based reassembly and normalization
+      - Use protocol analysis beyond simple pattern matching
+      - Know the limits of detecting inside encrypted traffic
+
+  - id: network_forensics
+    name: "Network Forensics and Traffic Analysis"
+    description: >-
+      Investigating captured traffic to work out what happened during an
+      incident: who talked to whom, when, and what was taken or changed.
+    key_skills:
+      - Build a timeline from packet captures
+      - Find compromised hosts and attacker infrastructure
+      - Recover files and commands from traffic
+      - Spot beaconing and data exfiltration
+      - Use logs and flow data alongside full packets
+
+  - id: packet_engineering
+    name: "Packet Engineering"
+    description: >-
+      Building, changing, and replaying packets yourself, mostly with
+      Scapy, to test defenses or understand how something reacts.
+    key_skills:
+      - Build packets layer by layer in Scapy
+      - Read and modify pcaps with Scapy
+      - Send and sniff packets and read the responses
+      - Craft unusual packets (odd flags, fragments)
+      - Write small Python scripts around Scapy
+
+  - id: traffic_analysis
+    name: "SiLK and Other Traffic Analysis Tools"
+    description: >-
+      Working with flow data (summaries of connections rather than full
+      packets) using SiLK and similar tools to find patterns at scale.
+    key_skills:
+      - Explain flow data vs full packet capture
+      - Use rwfilter to select flows
+      - Use rwstats, rwcut, and rwcount to summarize
+      - Find top talkers, scans, and unusual volumes
+      - Know when other tools (Zeek, etc.) fit better
+
+# One entry per check-in, oldest first. Add new ones at the bottom.
+# Scores use the scale above and are keyed by objective id.
+checkins:
+  - date: 2026-09-29
+    scores:
+      tcpip_link_layer: 3
+      ip_headers: 2
+      tcp: 2
+      udp_icmp: 2
+      ipv6: 1
+      fragmentation: 1
+      tcpdump_filters: 1
+      wireshark: 3
+      application_protocols: 1
+      ids_fundamentals: 1
+      ids_rules: 1
+      advanced_ids: 1
+      network_forensics: 2
+      packet_engineering: 1
+      traffic_analysis: 1
